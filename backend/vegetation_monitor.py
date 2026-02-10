@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 
 from config import DISTRICTS, SATELLITE_CONFIG, NDVI_THRESHOLDS, ALERT_CONFIG
+from ee_auth import initialize_earth_engine
 
 
 class VegetationMonitor:
@@ -20,11 +21,11 @@ class VegetationMonitor:
     def __init__(self):
         """Initialize Earth Engine and load configuration"""
         try:
-            ee.Initialize()
+            initialize_earth_engine()
             print("✓ Google Earth Engine initialized successfully")
         except Exception as e:
             print(f"✗ Earth Engine initialization failed: {e}")
-            print("Run 'earthengine authenticate' first")
+            print("Run 'earthengine authenticate' first or add service account to Streamlit secrets")
             raise
 
         self.districts = DISTRICTS
